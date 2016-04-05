@@ -1,23 +1,25 @@
-Homebrew Formulae
-=================
+# Homebrew Formulae
 
-A personal git repository of Homebrew formulas that I have either:
+This is my personal repository of Homebrew formulae.
 
-* Created myself and not gotten around to pushing upstream, or ... 
-* Made modifications to an existing install script for whatever
-reason
+See also: [Maintaining a Brew Tap](https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/How-to-Create-and-Maintain-a-Tap.md)
 
-Usage
-=====
+## Usage
 
-* In order to use these formulae with Homebrew, you can either:
+### Install
 
-```
-brew install [raw GitHub URL to formula script file]
+```shell
+brew tap i8degrees/homebrew-formulae
 ```
 
-	...or
+### Removal
 
+```shell
+brew untap i8degrees/homebrew-formulae
 ```
-brew install [local git repo clone path to formula script file]
+
+### Update
+
+```shell
+brew update
 ```
