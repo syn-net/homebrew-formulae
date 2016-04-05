@@ -24,20 +24,23 @@ use strict;
 
 require 5.006_001;
 
+use lib '/usr/local/Cellar/graphicsmagick/1.3.23/lib/perl5/site_perl';
 use Cwd qw(realpath);
 use DB_File;
 use Digest::MD5 qw(md5_hex);
 use Getopt::Long qw(:config no_ignore_case require_order);
 use File::MimeInfo::Magic;
 use File::Temp qw(tempdir tempfile);
-use Image::Magick;
+use Graphics::Magick;
 use MIME::Base64;
 use Pod::Usage;
 
 use Inline
 	C => 'DATA',
 	NAME => 'findimagedupes',
-	DIRECTORY => '/private/tmp/findimagedupes';
+	DIRECTORY => '/usr/local/var/tmp/findimagedupes';
+	#DIRECTORY => '/usr/local/findimagedupes';
+	#DIRECTORY => '/private/tmp/findimagedupes';
 
 # ----------------------------------------------------------------------
 #
@@ -138,7 +141,7 @@ my $read_input = grep(/^-$/, @ARGV);
 # XXX: can we tie these to save memory without breaking hv_iterinit() ?
 my (%fpcache, %filelist);
 
-my $image = Image::Magick->new;
+my $image = Graphics::Magick->new;
 
 for (@debug) { $debug{$_} = 1 }
 
