@@ -3,9 +3,9 @@ require 'formula'
 
 class Synergy < Formula
   homepage 'http://synergy-foss.org'
-  url 'http://synergy.googlecode.com/files/synergy-1.4.15-Source.tar.gz'
-  sha1 '0766bc3d95d6971746764d30e0853db14926ae73'
-  version '1.4.15'
+  url 'http://synergy-project.org/files/packages/synergy-1.5.0-r2278-Source.tar.gz'
+  sha1 '808f1d793e5e977241bbef7e28fd02990adf8a47'
+  version '1.5.0'
 
   # Use the standard environment that leaves the PATH as the user has set it
   # right now -- cmake cannot be found without this line, and I'm too lazy to
@@ -21,7 +21,7 @@ class Synergy < Formula
     # Ensure, first, that you have the appropriate installed paths for the OSX
     # SDK as per http://synergy-foss.org/wiki/Compiling#Mac_OS_X_10.4_and_above
     # or this is likely to fail..!
-    system "./hm.sh conf -g1 --mac-sdk=10.8"
+    system "./hm.sh conf -g1 --mac-sdk=10.8 --mac-identity virgo"
 
     system "./hm.sh build"
 
