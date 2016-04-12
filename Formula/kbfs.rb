@@ -27,7 +27,7 @@ class Kbfs < Formula
     ENV["GOBIN"] = buildpath
     ENV["GO15VENDOREXPERIMENT"] = "0"
     system "mkdir", "-p", "src/github.com/keybase/"
-    system "mv", "client", "src/github.com/keybase/"
+    # system "mv", "client", "src/github.com/keybase/"
     system "mv", "kbfs", "src/github.com/keybase/"
 
     system "go", "get", "github.com/keybase/kbfs/kbfsfuse"
