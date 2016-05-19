@@ -24,7 +24,7 @@ use strict;
 
 require 5.006_001;
 
-use lib '/usr/local/Cellar/graphicsmagick/1.3.23/lib/perl5/site_perl';
+use lib '/usr/local/Cellar/graphicsmagick/1.3.23_1/lib/perl5/darwin-thread-multi-2level';
 use Cwd qw(realpath);
 use DB_File;
 use Digest::MD5 qw(md5_hex);
@@ -38,9 +38,8 @@ use Pod::Usage;
 use Inline
 	C => 'DATA',
 	NAME => 'findimagedupes',
-	DIRECTORY => '/usr/local/var/tmp/findimagedupes';
 	#DIRECTORY => '/usr/local/findimagedupes';
-	#DIRECTORY => '/private/tmp/findimagedupes';
+	DIRECTORY => '/tmp/findimagedupes';
 
 # ----------------------------------------------------------------------
 #

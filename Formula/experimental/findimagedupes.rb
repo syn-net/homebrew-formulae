@@ -9,9 +9,10 @@ class Findimagedupes < Formula
   # Use brew's perl so that we can install perl dependencies from within this
   # formula
   #depends_on 'perl514'
+  # depends_on 'perl-build'
 
   # FIXME; how do I specify a local path to this formula dep?
-  #depends_on 'graphicsmagick' => 'with-perl'
+  # depends_on 'graphicsmagick' => 'with-perl'
 
 	def install
     bin.install ['findimagedupes']
