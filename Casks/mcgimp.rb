@@ -7,5 +7,4 @@ cask 'mcgimp' do
   homepage 'http://www.partha.com'
   license :gpl
   app 'McGimp-2.9.app'
-
 end
