@@ -1,9 +1,8 @@
 cask 'mcgimp' do
-  version '2.9.3'
-  # sha256 '898e98082410db2ab1bcca5c8ffcea2dd3f75798e304d80146976f92e0b684df'
-  sha256 'fd98c0a31c719914ac05868a6366bab884c40c4504d04a55df6d263dbc5bfc02'
+  version '2.9.5-cc'
+  sha256 '299f3f4345a508091b0d6f8d6bfd7f3f9495fe674d610178ca54599b911e4938'
 
-  url 'http://www.partha.com/downloads/McGimp-2.9.app.zip'
+  url 'http://www.partha.com/downloads/McGimp-2.9-cc.app.zip'
   name 'McGIMP'
   homepage 'http://www.partha.com'
   license :gpl
