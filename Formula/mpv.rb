@@ -1,8 +1,9 @@
 class Mpv < Formula
   desc "Free, open source, and cross-platform media player"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/v0.17.0.tar.gz"
-  sha256 "602cd2b0f5fc7e43473234fbb96e3f7bbb6418f15eb8fa720d9433cce31eba6e"
+  url "https://github.com/mpv-player/mpv/archive/v0.27.0.tar.gz"
+  sha256 "341d8bf18b75c1f78d5b681480b5b7f5c8b87d97a0d4f53a5648ede9c219a49c"
+  revision 1
   head "https://github.com/mpv-player/mpv.git"
 
   bottle do
