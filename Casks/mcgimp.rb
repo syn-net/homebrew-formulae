@@ -1,10 +1,21 @@
 cask 'mcgimp' do
-  version '2.9.5'
-  sha256 '299f3f4345a508091b0d6f8d6bfd7f3f9495fe674d610178ca54599b911e4938'
+  version '2.9.6'
+  sha256 '51442d6f0e48341bf2002eef75f366994b47bd31c6afb9f9855683623582cb93'
 
-  url 'http://www.partha.com/downloads/McGimp-2.9-cc.app.zip'
-  name 'McGIMP'
+  url 'http://www.partha.com/downloads/McGimp-2.9-std.app.zip'
+  name 'GIMP'
   homepage 'http://www.partha.com'
-  license :gpl
-  app 'McGimp-2.9-cc.app'
+
+  app 'McGimp-2.9-std.app'
+
+  postflight do
+    set_permissions "#{appdir}/McGimp-2.9-std.app/Contents/MacOS/mcgimp-std",
+      'a+rx'
+  end
+
+  zap trash: [
+    '~/Library/Preferences/gimp-2.9.plist',
+    # '~/Library/Application Support/GIMP',
+  ]
+
 end
