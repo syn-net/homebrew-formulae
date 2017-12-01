@@ -1,4 +1,4 @@
-cask 'mcgimp' do
+cask 'mcgimp-std' do
   version '2.9.6'
   sha256 '51442d6f0e48341bf2002eef75f366994b47bd31c6afb9f9855683623582cb93'
 
