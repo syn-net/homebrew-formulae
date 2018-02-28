@@ -1,6 +1,6 @@
 cask 'mcgimp-std' do
-  version '2.9.6'
-  sha256 '51442d6f0e48341bf2002eef75f366994b47bd31c6afb9f9855683623582cb93'
+  version '2.9.89'
+  sha256 '95a7e2d1e53423e92c88aac2cdcd5f2a886eded94353aecc1edfd1b01fdc3eb4'
 
   url 'http://www.partha.com/downloads/McGimp-2.9-std.app.zip'
   name 'GIMP'
