@@ -7,7 +7,6 @@ cask 'quiver' do
   homepage 'http://happenapps.com/#quiver'
   # issues 'https://github.com/HappenApps/Quiver/issues'
   # wiki 'https://github.com/HappenApps/Quiver/wiki'
-  license :commercial
 
   auto_updates true
 
