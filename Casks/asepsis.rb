@@ -1,3 +1,10 @@
-b7c101fd216364423d7de9009aa9e82934042f0403479746fbe604a8b5f3883b  Asepsis-1.5.2.dmg
-47d28b8b1c4c5fee984ab1c1db6a75e8a4b5cc18883b9c7b043bc688e3bd6202cb4389a67e68067c4a32892933fadc714e513b240910c8e9061e157f89acf7d5  Asepsis-1.5.2.dmg
-61290e84c62e65d50c0ca87dfea7e22f  Asepsis-1.5.2.dmg
+cask 'asepsis' do
+  name 'Asepsis'
+  url 'http://downloads.binaryage.com/Asepsis-1.5.2.dmg'
+  homepage 'http://asepsis.binaryage.com/'
+  version '1.5.2'
+  sha256 'b7c101fd216364423d7de9009aa9e82934042f0403479746fbe604a8b5f3883b'
+  # install 'Asepsis.mpkg'
+  uninstall :pkgutil => 'com.binaryage.pkg.asepsis'
+
+end
