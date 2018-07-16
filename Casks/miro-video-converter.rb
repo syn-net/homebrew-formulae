@@ -6,7 +6,6 @@ cask 'miro-video-converter' do
   url 'http://getmiro.com/files/MiroVideoConverter.dmg'
   name 'Miro Video Converter'
   homepage 'http://www.mirovideoconverter.com/'
-  license :gpl
 
   app 'Miro Video Converter.app'
 end
