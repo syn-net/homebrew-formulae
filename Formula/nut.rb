@@ -56,6 +56,10 @@ class Nut < Formula
       <true/>
       <key>ProcessType</key>
       <string>Interactive</string>
+      <key>StandardOutPath</key>
+      <string>/usr/local/var/log/upsmon.log</string>
+      <key>StandardErrorPath</key>
+      <string>/usr/local/var/log/upsmon.log</string>
     </dict>
     </plist>
   EOS
