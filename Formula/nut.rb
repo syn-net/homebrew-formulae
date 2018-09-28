@@ -27,6 +27,11 @@ class Nut < Formula
 
   conflicts_with "rhino", :because => "both install `rhino` binaries"
 
+  def caveats; <<~EOS
+    NUT requires configuration at #{etc}/nut to start.
+  EOS
+  end
+
   plist_options :manual => "nut"
 
   def plist; <<~EOS
