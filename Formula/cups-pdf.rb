@@ -27,17 +27,19 @@ class CupsPdf < Formula
     permissions, symlink the necessary files to their System location and
     have cupsd re-read its configuration using:
 
-    chmod 0700 #{lib}/cups/backend/cups-pdf
+    /bin/chmod 0700 #{lib}/cups/backend/cups-pdf
     sudo chown root #{lib}/cups/backend/cups-pdf
-    sudo ln -sf #{etc}/cups/cups-pdf.conf /etc/cups/cups-pdf.conf
-    sudo ln -sf #{lib}/cups/backend/cups-pdf /usr/libexec/cups/backend/cups-pdf
-    sudo chmod -h 0700 /usr/libexec/cups/backend/cups-pdf
-    sudo ln -sf #{share}/cups/model/CUPS-PDF.ppd /usr/share/cups/model/CUPS-PDF_opt.ppd
+    sudo /bin/ln -sf #{etc}/cups/cups-pdf.conf /etc/cups/cups-pdf.conf
+    sudo /bin/ln -sf #{lib}/cups/backend/cups-pdf /usr/libexec/cups/backend/cups-pdf
+    sudo /bin/chmod -h 0700 /usr/libexec/cups/backend/cups-pdf
+    sudo mount -uw /
+    sudo /bin/ln -sf #{share}/cups/model/CUPS-PDF_opt.ppd /usr/share/cups/model/CUPS-PDF.ppd
 
-    sudo mkdir -p /var/spool/cups-pdf/${USER}
+    sudo /bin/mkdir -p /var/spool/cups-pdf/${USER}
     sudo chown ${USER}:staff /var/spool/cups-pdf/${USER}
-    ln -s /var/spool/cups-pdf/${USER} ${HOME}/Documents/cups-pdf
+    /bin/ln -s /var/spool/cups-pdf/${USER} ${HOME}/Documents/cups-pdf
     sudo killall -HUP cupsd
+    sudo diskutil mount readOnly -mountPoint / /dev/disk#s#
 
     NOTE: When uninstalling cups-pdf these symlinks need to be removed manually.
     EOF
