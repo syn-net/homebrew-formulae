@@ -6,20 +6,23 @@ class CupsPdf < Formula
   sha256 "738669edff7f1469fe5e411202d87f93ba25b45f332a623fb607d49c59aa9531"
   license "GPL-2.0-or-later"
 
+  depends_on "cups"
+
   # Patch derived from MacPorts.
   # def patches; DATA; end
   patch :DATA
 
   def install
-    system "#{ENV.cc} #{ENV.cflags}" "-o", "cups-pdf", "src/cups-pdf.c"
+    system "#{ENV.cc}", "#{ENV.cflags}" "-lcups", "-o", "cups-pdf", "src/cups-pdf.c"
 
     (etc+"cups").install "extra/cups-pdf.conf"
     (lib+"cups/backend").install "cups-pdf"
-    (share+"cups/model").install "extra/CUPS-PDF.ppd"
+    (share+"cups/model").install "extra/CUPS-PDF_opt.ppd"
+    (share+"cups/model").install "extra/CUPS-PDF_noopt.ppd"
   end
 
   def caveats
-    <<-EOF.undent
+    <<-EOF
     In order to use cups-pdf with the Mac OS X printing system change the file
     permissions, symlink the necessary files to their System location and
     have cupsd re-read its configuration using:
@@ -29,7 +32,7 @@ class CupsPdf < Formula
     sudo ln -sf #{etc}/cups/cups-pdf.conf /etc/cups/cups-pdf.conf
     sudo ln -sf #{lib}/cups/backend/cups-pdf /usr/libexec/cups/backend/cups-pdf
     sudo chmod -h 0700 /usr/libexec/cups/backend/cups-pdf
-    sudo ln -sf #{share}/cups/model/CUPS-PDF.ppd /usr/share/cups/model/CUPS-PDF.ppd
+    sudo ln -sf #{share}/cups/model/CUPS-PDF.ppd /usr/share/cups/model/CUPS-PDF_opt.ppd
 
     sudo mkdir -p /var/spool/cups-pdf/${USER}
     sudo chown ${USER}:staff /var/spool/cups-pdf/${USER}
@@ -38,10 +41,6 @@ class CupsPdf < Formula
 
     NOTE: When uninstalling cups-pdf these symlinks need to be removed manually.
     EOF
-  end
-
-  test do
-    system make, "test"
   end
 end
 
@@ -86,14 +85,13 @@ index cfb4b78..cc8410d 100644
  
  
  ###########################################################################
-@@ -220,28 +220,28 @@
- ##          or its proper location on your system
+@@ -239,27 +239,28 @@ Grp _lp
  ### Default: /usr/bin/gs
  
--#GhostScript /usr/bin/gs
+ #GhostScript /usr/bin/gs
 +GhostScript /usr/bin/pstopdf
  
- ### Key: GSTmp
+ ### Key: GSTmp (config)
  ##  location of temporary files during GhostScript operation 
  ##  this must be user-writable like /var/tmp or /tmp ! 
  ### Default: /var/tmp
@@ -101,7 +99,7 @@ index cfb4b78..cc8410d 100644
 -#GSTmp /var/tmp
 +GSTmp /tmp
  
- ### Key: GSCall
+ ### Key: GSCall (config)
  ## command line for calling GhostScript (!!! DO NOT USE NEWLINES !!!)
  ## MacOSX: for using pstopdf set this to %s %s -o %s %s
  ### Default: %s -q -dCompatibilityLevel=%s -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -sOutputFile="%s" -dAutoRotatePages=/PageByPage -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dPDFSETTINGS=/prepress -c .setpdfwrite -f %s
@@ -109,13 +107,13 @@ index cfb4b78..cc8410d 100644
 -#GSCall %s -q -dCompatibilityLevel=%s -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -sOutputFile="%s" -dAutoRotatePages=/PageByPage -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dPDFSETTINGS=/prepress -c .setpdfwrite -f %s
 +GSCall %s %s -o %s %s
  
- ### Key: PDFVer
+ ### Key: PDFVer (config, ppd, lptopions)
  ##  PDF version to be created - can be "1.5", "1.4", "1.3" or "1.2" 
  ##  MacOSX: for using pstopdf set this to an empty value
  ### Default: 1.4
  
 -#PDFVer 1.4
-+PDFVer 
++PDFVer
  
- ### Key: PostProcessing
+ ### Key: PostProcessing (config, lptoptions)
  ##  postprocessing script that will be called after the creation of the PDF
