@@ -19,6 +19,12 @@ class CupsPdf < Formula
     (lib+"cups/backend").install "cups-pdf"
     (share+"cups/model").install "extra/CUPS-PDF_opt.ppd"
     (share+"cups/model").install "extra/CUPS-PDF_noopt.ppd"
+    
+    # TODO(jeff): Perform as much of caveats configuration with Ruby's FileUtils impl [1] as possible [2].
+    # 1. https://ruby-doc.org/stdlib-3.1.2/libdoc/fileutils/rdoc/FileUtils.html#method-c-chmod
+    # 2. https://docs.brew.sh/Formula-Cookbook#file-level-operations
+    # (lib+"cups/backend").chmod 0700, "cups-pdf"
+    # (etc+"cups").install_symlink 
   end
 
   def caveats
