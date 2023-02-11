@@ -24,13 +24,15 @@ An install of the daemon `ddclient` resides in my `Formula` directory and
 is installed like so:
 
 ```shell
-brew install i8degrees/ddclient
+# Formula
+brew install i8degrees/formulae/ddclient
 ```
 
 The install of the awesome `mpv` video player sits in my `Casks` directory 
 and is done the same way:
 
 ```shell
+# Cask
 brew install i8degrees/mpv
 ```
 
@@ -49,4 +51,4 @@ brew update
 ## References
 
 1. [Maintaining a Brew Tap](https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/How-to-Create-and-Maintain-a-Tap.md)
-
+1. <https://docs.brew.sh/Formula-Cookbook>
