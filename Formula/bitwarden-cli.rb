@@ -17,7 +17,8 @@ class BitwardenCli < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "b5003c94ebc6f68b58c635a53d7faae01b3c8f3662139a8ffef10d7fd0fa60c4"
   end
 
-  depends_on "node" => :optional
+  # depends_on "node" => :optional
+  # depends_on "npm" => :optional
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
