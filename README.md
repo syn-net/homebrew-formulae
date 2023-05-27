@@ -25,7 +25,7 @@ is installed like so:
 
 ```shell
 # Formula
-brew install syn-net/formulae/ddclient
+brew install syn-net/Formula/ddclient
 ```
 
 The install of the awesome `mpv` video player sits in my `Casks` directory
@@ -33,7 +33,7 @@ and is done the same way:
 
 ```shell
 # Casks do not require the word formulae in front of it
-brew install syn-net/mpv
+brew install syn-net/Formula/mpv
 ```
 
 ### Uninstall
