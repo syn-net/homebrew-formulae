@@ -1,22 +1,11 @@
+# https://gitlab.archlinux.org/archlinux/packaging/packages/mpd/-/blob/main/PKGBUILD
 class Mpd < Formula
   desc "Music Player Daemon"
   homepage "https://web.archive.org/web/20230506090801/https://www.musicpd.org/"
+  url "https://github.com/MusicPlayerDaemon/MPD/archive/refs/tags/v0.23.13.tar.gz"
+  sha256 "c002fd15033d791c8ac3dcc009b728b0e8440ed483ba56e3ff8964587fe9f97d"
   license "GPL-2.0-or-later"
-  revision 2
   head "https://github.com/MusicPlayerDaemon/MPD.git", branch: "master"
-  version "v0.22.6"
-
-  stable do
-    url "https://github.com/MusicPlayerDaemon/MPD/archive/refs/tags/#{version}.tar.gz"
-    #sha256 "592192b75d33e125eacef43824901cab98a621f5f7f655da66d3072955508c69"
-    sha256 "ed0f62654d26d47ce66e866d08dc1705f305f8e748617ac758b928d0955dd4fe"
-    # Add support for fmt 10.0.0 on the v0.23.x branch
-    # See https://github.com/MusicPlayerDaemon/MPD/commit/1690c2887f31f45bc5aee66e6283dd4bf338197c
-    #patch do
-      #url "https://github.com/MusicPlayerDaemon/MPD/commit/1690c2887f31f45bc5aee66e6283dd4bf338197c.patch?full_index=1"
-      #sha256 "9ca84ff99126b33ab0b4394729106209e1ef25d402225c20e67a2ed0333300c5"
-    #end
-  end
 
   depends_on "boost" => :build
   depends_on "meson" => :build
@@ -40,13 +29,23 @@ class Mpd < Formula
   depends_on "libshout"
   depends_on "libupnp"
   depends_on "libvorbis"
-  depends_on macos: :mojave # requires C++17 features unavailable in High Sierra
   depends_on "opus"
-  depends_on "sqlite"
-  # NOTE(jeff): This allows MPD to decode SPC music files
   depends_on "libgme"
-
+  depends_on "chromaprint"
+  depends_on "sqlite"
+  depends_on "libmad"
+  depends_on "libcdio"
+  depends_on "bzip2"
+  depends_on "fluidsynth"
+  depends_on "libmpd"
+  depends_on "twolame"
+  depends_on macos: :mojave # requires C++17 features unavailable in High Sierra
   uses_from_macos "curl"
+  depends_on "yajl"
+
+  on_linux do
+    depends_on "systemd" => :build
+  end
 
   fails_with gcc: "5"
 
@@ -58,26 +57,28 @@ class Mpd < Formula
 
     args = %W[
       --sysconfdir=#{etc}
-      -Dmad=disabled
-      -Dmpcdec=disabled
+      -Ddocumentation=enabled
+      -Dadplug=disabled
+      -Dsndio=disabled
+      -Dshine=disabled
+      -Dtremor=disabled
       -Dsoundcloud=enabled
-      -Dao=enabled
-      -Dbzip2=enabled
-      -Dexpat=enabled
-      -Dffmpeg=enabled
-      -Dfluidsynth=enabled
-      -Dnfs=enabled
-      -Dshout=enabled
-      -Dupnp=pupnp
-      -Dvorbisenc=enabled
+      -Dsystemd_system_unit_dir=#{lib}/systemd/system
+      -Dsystemd_user_unit_dir=#{lib}/systemd/user
+      -Db_ndebug=true
     ]
 
     system "meson", "setup", "output/release", *args, *std_meson_args
-    system "meson", "compile", "-C", "output/release"
+    system "meson", "compile", "-C", "output/release", "--verbose"
     ENV.deparallelize # Directories are created in parallel, so let's not do that
     system "meson", "install", "-C", "output/release"
 
     pkgetc.install "doc/mpdconf.example" => "mpd.conf"
+
+    if OS.linux?
+      system "install", "-vDm", "644", "mpd.sysusers", "#{lib}/sysusers.d/mpd.conf"
+      system "install", "-vDm", "644", "mpd.tmpfiles", "#{lib}/tmpfiles.d/mpd.conf"
+    end
   end
 
   def caveats
