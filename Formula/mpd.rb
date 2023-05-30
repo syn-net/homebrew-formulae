@@ -36,12 +36,12 @@ class Mpd < Formula
   depends_on "libshout"
   depends_on "libupnp"
   depends_on "libvorbis"
-  depends_on macos: :mojave # requires C++17 features unavailable in High Sierra
   depends_on "opus"
   depends_on "sqlite"
   depends_on "twolame"
   depends_on "yajl"
   uses_from_macos "curl"
+  depends_on macos: :mojave # requires C++17 features unavailable in High Sierra
 
   on_linux do
     depends_on "systemd" => :build
@@ -75,9 +75,12 @@ class Mpd < Formula
 
     pkgetc.install "doc/mpdconf.example" => "mpd.conf"
 
+    # FIXME(jeff): We need to create these two files in order for proper operation
+    # of the mpd systemd service script. I need to research this further in order 
+    # to understand where these files originate from.
     if OS.linux?
-      system "install", "-vDm", "644", "mpd.sysusers", "#{lib}/sysusers.d/mpd.conf"
-      system "install", "-vDm", "644", "mpd.tmpfiles", "#{lib}/tmpfiles.d/mpd.conf"
+      #system "install", "-vDm", "644", "mpd.sysusers", "#{lib}/sysusers.d/mpd.conf"
+      #system "install", "-vDm", "644", "mpd.tmpfiles", "#{lib}/tmpfiles.d/mpd.conf"
     end
   end
 
