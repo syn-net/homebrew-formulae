@@ -56,6 +56,7 @@ brew tap -v git@github.com:syn-net/homebrew-formulae git@github.com:syn-net/home
 
 ```shell
 brew untap syn-net/homebrew-formulae
+#brew untap -v git@github.com:syn-net/homebrew-formulae git@github.com:syn-net/homebrew-formulae
 ```
 
 ### Update
