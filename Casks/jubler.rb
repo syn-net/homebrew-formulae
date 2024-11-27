@@ -8,7 +8,6 @@ cask 'jubler' do
   # sourceforge.net/jubler was verified as official when first introduced to the cask
   url "https://github.com/teras/Jubler/releases/download/#{version}/Jubler-#{version}.dmg"
 
-  appcast 'https://sourceforge.net/projects/jubler/rss'
   name 'Jubler'
   homepage 'http://www.jubler.org/'
 

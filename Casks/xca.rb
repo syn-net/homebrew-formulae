@@ -16,9 +16,6 @@ cask 'xca' do
     url "https://github.com/chris2511/xca/releases/download/RELEASE.#{version}/xca-#{version}.dmg"
   end
 
-  appcast 'https://github.com/chris2511/xca/releases.atom',
-          checkpoint: '802f6d038e3e40197cfc9ea4f6b19bb786b1bddf1180821013c64a9e1a9af956'
-
   name 'XCA'
   homepage 'http://hohnstaedt.de/xca/'
 
