@@ -1,4 +1,12 @@
-# https://gitlab.archlinux.org/archlinux/packaging/packages/mpd/-/blob/main/PKGBUILD
+#ENV.CC = "/usr/local/Cellar/gcc/14.2.0_1/bin/gcc-14"
+#ENV['CXX'] = "/usr/local/Cellar/gcc/14.2.0_1/bin/g++-14"
+# FIXME(JEFF): Building the documentation requires additional deps;
+# sphinx-build
+#-Dsmbclient=disabled # NOTE(JEFF): smbclient feature is broken due to a "serious bug" that crashes MPD
+#-Dopenal=enabled # IMPORTANT(JEFF): This is a useful alternative audio backend on MacOS
+#
+# 1. https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/m/mpd.rb
+# 2. https://gitlab.archlinux.org/archlinux/packaging/packages/mpd/-/blob/main/PKGBUILD
 class Mpd < Formula
   desc "Music Player Daemon"
   homepage "https://web.archive.org/web/20230506090801/https://www.musicpd.org/"
@@ -15,13 +23,11 @@ class Mpd < Formula
   depends_on "chromaprint"
   depends_on "expat"
   depends_on "faad2"
-  depends_on "ffmpeg"
   depends_on "flac"
   depends_on "fluid-synth"
   depends_on "fluidsynth"
   depends_on "fmt"
   depends_on "glib"
-  depends_on "icu4c"
   depends_on "lame"
   depends_on "libao"
   depends_on "libcdio"
@@ -40,32 +46,58 @@ class Mpd < Formula
   depends_on "sqlite"
   depends_on "twolame"
   depends_on "yajl"
+  depends_on "libogg"
+
   uses_from_macos "curl"
   depends_on macos: :mojave # requires C++17 features unavailable in High Sierra
+  uses_from_macos "curl"
+  uses_from_macos "bzip2"
+  uses_from_macos "zlib"
 
   on_linux do
+    depends_on "icu4c"
+    depends_on "ffmpeg"
     depends_on "systemd" => :build
+    depends_on "alsa-lib"
+    depends_on "dbus"
+    depends_on "jack"
+    depends_on "pulseaudio"
+    depends_on "pipewire"
+    depends_on "systemd"
   end
 
   fails_with gcc: "5"
 
+  # Compatibility with fmt 11
+  patch do
+    url "https://github.com/MusicPlayerDaemon/MPD/commit/3648475f871c33daa9e598c102a16e5a1a4d4dfc.patch?full_index=1"
+    sha256 "5733f66678b3842c8721c75501f6c25085808efc42881847af11696cc545848e"
+  end
+  
   def install
     # mpd specifies -std=gnu++0x, but clang appears to try to build
     # that against libstdc++ anyway, which won't work.
     # The build is fine with G++.
     ENV.libcxx
+    #ENV['PKG_CONFIG_PATH'] += "/usr/local/opt/icu4c@76/lib/pkgconfig"
+    ENV['CXX'] = "g++-14"
 
+    #-Dsoundcloud=enabled
     args = %W[
       --sysconfdir=#{etc}
-      -Ddocumentation=enabled
-      -Dadplug=disabled
-      -Dsndio=disabled
-      -Dshine=disabled
-      -Dtremor=disabled
-      -Dsoundcloud=enabled
-      -Dsystemd_system_unit_dir=#{lib}/systemd/system
-      -Dsystemd_user_unit_dir=#{lib}/systemd/user
+      -Ddocumentation=disabled
+      -Dmanpages=true
+      -Dneighbor=true
+      -Dwebdav=disabled
+      -Dlibmpdclient=enabled
+      -Ddatabase=true
+      -Dsmbclient=disabled
+      -Dopenal=enabled
       -Db_ndebug=true
+      -Dffmpeg=disabled
+      -Dicu=disabled
+      -Dsystemd_user_unit_dir=#{lib}/systemd/user
+      -Dsystemd_system_unit_dir=#{lib}/systemd/system
     ]
 
     system "meson", "setup", "output/release", *args, *std_meson_args
