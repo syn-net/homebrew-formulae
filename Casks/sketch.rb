@@ -20,10 +20,10 @@ cask "sketch" do
       strategy :sparkle
     end
   end
-  on_monterey do
+  on_monterey do # 12.7.x
     version "100.3,180165"
-    sha256 "30bcd1bbde8aa493592402d9fdceb5167543b440ee0954d451b6b5292a14cdd7"
-    # https://download.sketch.com/sketch-100.3-180165.zip
+    sha256 "e51efde061eb3d5b9b999f7821d0d547114ce5b3ed06c0ca3278d60fb4d92678"
+
     url "https://download.sketch.com/sketch-#{version.csv.first}-#{version.csv.second}.zip"
 
     livecheck do
@@ -37,7 +37,7 @@ cask "sketch" do
   homepage "https://www.sketch.com/"
 
   auto_updates true
-  depends_on macos: ">= :big_sur"
+  depends_on macos: ">= :big_sur" # 12.6.x
 
   app "Sketch.app"
 
