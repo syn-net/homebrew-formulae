@@ -47,9 +47,19 @@ brew install syn-net/Formula/mpv
 
 ### git clone using SSH
 
+You should use one or the other, but not both!
+
 ```shell
 # defaults to a SSH git pull
 brew tap -v git@github.com:syn-net/homebrew-formulae git@github.com:syn-net/homebrew-formulae
+```
+
+```shell
+# Formula
+brew install git@github.com:syn-net/formulae/mpd # -vd
+# Cask
+brew install --cask git@github.com:syn-net/formulae/mpv # -vd
+brew install --cask git@github.com:syn-net/formulae/cantata # -vd
 ```
 
 ### Uninstall
